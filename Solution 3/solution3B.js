@@ -1,8 +1,13 @@
 var fs = require('fs'),
     readline = require('readline');
+
 var count = 0;
 var counter = 0;
-var password = [];
+
+var array1 = [];
+var array2 = [];
+var array3 = [];
+
 var debug = false;
 var file = '';
 
@@ -42,9 +47,14 @@ function cutString(line)
 {
 
 	var stringArray = get3valuesfromThisText(line.split(' '));
+	array1.push(stringArray[0]);
+	array2.push(stringArray[1]);
+	array3.push(stringArray[2]);
 
-	checkAllSides(parseInt(stringArray[0]), parseInt(stringArray[1]), parseInt(stringArray[2]));
+};
 
+function startCheckingTriangleArrays(triangle){
+	checkAllSides(parseInt(triangle[0]), parseInt(triangle[1]), parseInt(triangle[2]));
 };
 
 function checkAllSides(side1,side2,side3) 
@@ -79,10 +89,37 @@ function checkTraingle(side1, side2, side3)
 	return true;
 };
 
-rd.on('line', function(line) {
-  	cutString(line);
-});
+function start(){
+	
+	rd.on('line', function(line) {
+  		cutString(line);
+	});
 
+
+	//after the lines are read.........
+	rd.on('close', function() {
+		checkArray(array1);
+		checkArray(array2);
+		checkArray(array3);
+
+
+		console.log('done?');	
+	});
+
+};
+
+function checkArray(array){
+	
+	for(i = 0; i < array.length / 3 ; i++)
+	{
+		//console.log( (i*3) + ' : '+ ((i*3)+1) +' : '+ ((i*3)+2) );
+		//console.log( (i*3) + ' : '+ ((i*3)+1) +' : '+ ((i*3)+2) );
+		checkAllSides(parseInt(array[(i*3)]), parseInt(array[((i*3)+1)]), parseInt(array[((i*3)+2)]));
+	}
+	console.log('length of array : ' + array.length);
+};
+
+start();
 function sleep(milliseconds) {
   var start = new Date().getTime();
   for (var i = 0; i < 1e7; i++) {
