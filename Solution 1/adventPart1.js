@@ -274,15 +274,13 @@ function crossingChecker(end1, end2, middleValue){
 	console.log('middle : ' + middleValue);
 	if(end1 < middleValue && middleValue < end2)
 	{
-		console.log('first True :D');
 		return true;
 	}
 
-	if(end2 < middleValue && middleValue < end1){
-		console.log('Second True :D');
+	if(end2 < middleValue && middleValue < end1)
+	{
 		return true;
 	}
-
-	console.log('False :D');
+	
 	return false;
 };

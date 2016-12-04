@@ -7,7 +7,7 @@ var counter = 0;
 var array1 = [];
 var array2 = [];
 var array3 = [];
-
+var debugValidation = false;
 var debug = false;
 var file = '';
 
@@ -23,7 +23,6 @@ console.log('This is the file used : ' + file);
 
 function get3valuesfromThisText(input)
 {
-
 	var numbers = [];
 	for(i in input)
 	{
@@ -32,7 +31,6 @@ function get3valuesfromThisText(input)
 			numbers.push(input[i].trim());
 		}
 	}
-	//console.log(numbers);
 	return numbers;
 }
 
@@ -59,20 +57,15 @@ function startCheckingTriangleArrays(triangle){
 
 function checkAllSides(side1,side2,side3) 
 {
-	console.log('Triangle : ' + side1 + ' , ' + side2 + ' , ' + side3 );
-
 	if( checkTraingle(side1, side2, side3) && checkTraingle(side2, side3, side1) &&	checkTraingle(side3, side1, side2) )
 	{
 		count++;
-		console.log('-------------------------------------------------------  count :' + count);
 	}
-/*	if(counter % 10 == 0)
+	if(debugValidation && counter % 10 == 0)
 	{
 		sleep(1000);
-	}*/
+	}
 	counter++;
-	//console.log('Triangles counted : ' + counter);
-
 };
 
 function checkTraingle(side1, side2, side3)
@@ -80,43 +73,29 @@ function checkTraingle(side1, side2, side3)
 	var value = side1 + side2;
 	if( value <= side3)
 	{
-		//console.log('Not Triangle : ' + value + ' < ' + side3 );
-
 		return false;
 	}
-	//console.log('Not Triangle : ' + side1 + ' + ' + side2 + ' > ' + side3 );
-	//console.log(( (side1 + side2) > side3))
 	return true;
 };
 
 function start(){
-	
 	rd.on('line', function(line) {
   		cutString(line);
 	});
-
-
 	//after the lines are read.........
 	rd.on('close', function() {
 		checkArray(array1);
 		checkArray(array2);
-		checkArray(array3);
-
-
-		console.log('done?');	
+		checkArray(array3);	
+		console.log('------------------------------------------------------- Triangle Count :' + count);
 	});
-
 };
 
 function checkArray(array){
-	
 	for(i = 0; i < array.length / 3 ; i++)
 	{
-		//console.log( (i*3) + ' : '+ ((i*3)+1) +' : '+ ((i*3)+2) );
-		//console.log( (i*3) + ' : '+ ((i*3)+1) +' : '+ ((i*3)+2) );
 		checkAllSides(parseInt(array[(i*3)]), parseInt(array[((i*3)+1)]), parseInt(array[((i*3)+2)]));
 	}
-	console.log('length of array : ' + array.length);
 };
 
 start();
