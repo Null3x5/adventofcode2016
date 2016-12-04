@@ -17,14 +17,6 @@ console.log('this is the file used : ' + file);
 
 function addToPassword(number){
 	password.push(number);
-	console.log(number);
-};
-
-function showPassword(){
-	for(i in password)
-	{
-		console.log(password[i]);
-	}
 };
 
 function lineToArray(line, callback)
@@ -67,12 +59,19 @@ var rd = readline.createInterface({
     terminal: false
 });
 
-
-
 rd.on('line', function(line) {
   	followTheString(line);
 });
 
+rd.on('close', function() {
+	var passwordTemp = '';
+	for(i in password)
+	{
+		passwordTemp = passwordTemp + password[i];
+	}
+
+	console.log('Here is your password : ' + passwordTemp);
+});
 
 //I never want to look at this method ever again :(
 function movePosition(position, command)
